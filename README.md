@@ -1,6 +1,6 @@
 # JavaScript Regenerated Talk
 
-[https://css-tricks.com/guest-posting/]
+[https://css-tricks.com/guest-posting/](https://css-tricks.com/guest-posting/)
 
 - What are my current problems?
 	- Build step, large bundles, accessibility, too many dependencies to keep up to date.
@@ -23,24 +23,29 @@
 
 Can define the function beforehand:
 
+```js
 function sum(...numbers) {
   return numbers.reduce((a, b) => a + b, 0);
 }
 
 sum(1, 2, 3, 4, 5) // 15
+```
 
 Can define it after:
 
+```js
 sum(1, 2, 3, 4, 5) // 15
 
 function sum(...numbers) {
   return numbers.reduce((a, b) => a + b, 0);
 }
+```
 
 ## Message oriented generator functions
 
 A generator function can send messages out:
 
+```js
 const messageA = 'a';
 const messageB = 'b';
 
@@ -52,9 +57,11 @@ function* Sender() {
 }
 
 Array.from(Sender()) // ['a', 'b', 'b', 'a']
+```
 
 The order that messages are sent matters:
 
+```js
 const messageA = 'a';
 const messageB = 'b';
 
@@ -66,6 +73,7 @@ function* Sender() {
 }
 
 Array.from(Sender()) // ['b', 'a', 'a', 'a']
+```
 
 To sent a message `"abc"`, run `yield "abc";`
 
@@ -79,7 +87,7 @@ A reply is asynchronous, sending a message and receiving a reply don’t have to
 
 An example of a receiver is `Array.from()`. It pushes each message onto a new array and returns said array.
 
-----
+---- 
 
 ## Glossary
 
@@ -91,6 +99,7 @@ An example of a receiver is `Array.from()`. It pushes each message onto a new ar
 - A message can be a collection: array, set, map, object
 - A message can be another generator function
 
+```js
 function* SomeGenerator() { // name: SomeGenerator
   yield 3.14; // number
   yield "abc"; // string
@@ -105,9 +114,10 @@ function* OtherGenerator() {
 }
 
 Array.from(Sender()) // ['b', 'a', 'a', 'a']
+```
 
 
-----
+---- 
 
 ## Making an HTML renderer
 
@@ -136,13 +146,13 @@ Array.from(Sender()) // ['b', 'a', 'a', 'a']
 	- After the Promise resolves, write it to the stream
 	- If the Promise rejects, then the error handler is called and its result written to the stream
 
-----
+---- 
 
 ## Making Declarative Graphics
 
 
 
-----
+---- 
 
 ## Making a Parser
 
@@ -181,10 +191,11 @@ Array.from(Sender()) // ['b', 'a', 'a', 'a']
 	- If an element matches, then reply with its matched value
 	- If none match, then fails
 
-----
+---- 
 
 ## HTTP Server Generator
 
+```js
 function *Health() {
   yield GET`/health`;
   yield json({ success: true });
@@ -202,11 +213,13 @@ function* AlbumDetails() {
   const details = yield AlbumRepo.readDetails(albumID);
   yield json(details);
 }
+```
 
-----
+---- 
 
 Mapping from countries to capital cities:
 
+```js
 function* Countries() {
   yield 'Argentina';
   yield 'Belgium';
@@ -224,7 +237,9 @@ function lookupCapitalCities(genCountries) {
     
   }
 }
+```
 
+```js
 function* Countries() {
   const capital1 = yield 'Argentina';
   // 'Buenos Aires'
@@ -242,3 +257,4 @@ function* Countries() {
 }
 
 Array.from(lookupCapitalCities(Countries())) // ['Buenos Aires', 'Brussels', 'Canberra', 'Baghdad']
+```
